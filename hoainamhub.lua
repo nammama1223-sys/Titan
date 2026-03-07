@@ -1,4 +1,4 @@
--- Hoài Nam Hub | Titan Fishing
+repeat task.wait() until game:IsLoaded()-- Hoài Nam Hub | Titan Fishing
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/banana-hub/banana-gui/main/source.lua"))()
 
