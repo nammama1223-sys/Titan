@@ -1,15 +1,39 @@
 repeat task.wait() until game:IsLoaded()
 
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/KavoUI.lua"))()
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui
 
-local Window = Library.CreateLib("Hoài Nam Hub | Titan Fishing","DarkTheme")
-local Tab = Window:NewTab("Main")
-local Section = Tab:NewSection("Farm")
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0,230,0,180)
+frame.Position = UDim2.new(0.05,0,0.3,0)
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
 
-_G.AutoFish = false
-Section:NewToggle("Auto Fish", "Auto catch fish", function(v)
-_G.AutoFish = v
-while _G.AutoFish do
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1,0,0,30)
+title.Text = "Hoài Nam Hub | Titan Fishing"
+title.TextColor3 = Color3.new(1,1,1)
+title.BackgroundTransparency = 1
+
+local autofish = Instance.new("TextButton", frame)
+autofish.Position = UDim2.new(0,0,0,40)
+autofish.Size = UDim2.new(1,0,0,35)
+autofish.Text = "Auto Fish"
+
+local autosell = Instance.new("TextButton", frame)
+autosell.Position = UDim2.new(0,0,0,80)
+autosell.Size = UDim2.new(1,0,0,35)
+autosell.Text = "Auto Sell"
+
+local tp = Instance.new("TextButton", frame)
+tp.Position = UDim2.new(0,0,0,120)
+tp.Size = UDim2.new(1,0,0,35)
+tp.Text = "Teleport Island"
+
+local af = false
+
+autofish.MouseButton1Click:Connect(function()
+af = not af
+while af do
 task.wait(1)
 pcall(function()
 game:GetService("ReplicatedStorage").Events.Fish:FireServer()
@@ -17,17 +41,12 @@ end)
 end
 end)
 
-_G.AutoSell = false
-Section:NewToggle("Auto Sell", "Auto sell fish", function(v)
-_G.AutoSell = v
-while _G.AutoSell do
-task.wait(5)
+autosell.MouseButton1Click:Connect(function()
 pcall(function()
 game:GetService("ReplicatedStorage").Events.Sell:FireServer()
 end)
-end
 end)
 
-Section:NewButton("Teleport Island 1","TP",function()
+tp.MouseButton1Click:Connect(function()
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0,10,0)
 end)
